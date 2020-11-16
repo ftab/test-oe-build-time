@@ -33,26 +33,36 @@ git checkout -b dunfell e2ef0dd8fa13d6b96e44773b09d07e4817d0a44d
 cd ..
 
 . ./oe-init-build-env
-sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-qt5/g' conf/bblayers.conf
-sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-clang/g' conf/bblayers.conf
-sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-openembedded\/meta-oe/g' conf/bblayers.conf
-sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-rust/g' conf/bblayers.conf
-sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-browser/g' conf/bblayers.conf
-sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-python2/g' conf/bblayers.conf
+if !grep conf/bblayers.conf meta-qt5 then
+  sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-qt5/g' conf/bblayers.conf
+fi
+if !grep conf/bblayers.conf meta-clangg then
+  sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-clang/g' conf/bblayers.conf
+fi
+if !grep conf/bblayers.conf meta-oe then
+  sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-openembedded\/meta-oe/g' conf/bblayers.conf
+fi
+if !grep conf/bblayers.conf meta-rust then
+  sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-rust/g' conf/bblayers.conf
+fi
+if !grep conf/bblayers.conf meta-browser then
+  sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-browser/g' conf/bblayers.conf
+fi
+if !grep conf/bblayers.conf meta-python2 then
+  sed -i 's/^\(.*\)meta-yocto-bsp/\1meta-yocto-bsp \\\n\1meta-python2/g' conf/bblayers.conf
+fi
 
-# Needed to build firefox
-echo 'HOSTTOOLS += "python python2.7"' >> conf/bblayers.conf
-cat >> conf/local.conf << EOF
+cat > conf/site.conf << EOF
+HOSTTOOLS += "python python2.7"
 RUST_VERSION = "1.37.0"
 PREFERRED_VERSION_rust-native ?= "\${RUST_VERSION}"
 PREFERRED_VERSION_rust-cross-\${TARGET_ARCH} ?= "\${RUST_VERSION}"
 PREFERRED_VERSION_rust-llvm-native ?= "\${RUST_VERSION}"
 PREFERRED_VERSION_libstd-rs ?= "\${RUST_VERSION}"
 PREFERRED_VERSION_cargo-native ?= "\${RUST_VERSION}"
-EOF
 
-cat >> conf/local.conf << EOF
 IMAGE_INSTALL_append_pn-core-image-sato = " qtwebengine qtwebkit chromium-x11 firefox epiphany"
 MACHINE = "qemux86-64"
 INHERIT += "rm_work"
+DL_DIR = "${HOME}/.yocto/downloads"
 EOF
