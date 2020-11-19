@@ -1,0 +1,56 @@
+SYS:	Dell Precision 7810
+CPU:	2 x Xeon E5-2630v4 (each 10 cores 20 threads)
+MB:	ext4 (rw,relatime,errors=remount-ro)
+RAM:	96GB
+DISK:	1TB Samsung 970 Evo Plus
+FS:	ext4 (rw,relatime,errors=remount-ro)
+OS:	Ubuntu 18.04
+
+==> 1-init.log <==
+ - 'devtool' and 'recipetool' handle common recipe tasks
+ - 'bitbake-layers' handles common layer tasks
+ - 'oe-pkgdata-util' handles common target package tasks
+49.60user 13.71system 2:18.81elapsed 45%CPU (0avgtext+0avgdata 332220maxresident)k
+16inputs+735000outputs (0major+221499minor)pagefaults 0swaps
+
+==> 2-build-test.log <==
+NOTE: recipe m4-native-1.4.18-r0: task do_rm_work: Succeeded
+NOTE: Running noexec task 46 of 46 (/home/build/test-oe-build-time-3/poky/meta/recipes-devtools/m4/m4-native_1.4.18.bb:do_build)
+NOTE: Tasks Summary: Attempted 46 tasks of which 0 didn't need to be rerun and all succeeded.
+0.74user 0.08system 0:57.91elapsed 1%CPU (0avgtext+0avgdata 31828maxresident)k
+312inputs+2752outputs (1major+20752minor)pagefaults 0swaps
+
+==> 3-fetch.log <==
+NOTE: recipe linux-yocto-5.4.34+gitAUTOINC+054d410d1a_e378a56261-r0: task do_fetch: Succeeded
+NOTE: recipe firefox-68.0esr-r0: task do_fetch: Succeeded
+NOTE: Tasks Summary: Attempted 555 tasks of which 0 didn't need to be rerun and all succeeded.
+1.21user 0.16system 0:31.47elapsed 4%CPU (0avgtext+0avgdata 29328maxresident)k
+0inputs+432outputs (0major+14932minor)pagefaults 0swaps
+
+==> 4-build-all-cores.log <==
+NOTE: Tasks Summary: Attempted 8960 tasks of which 1 didn't need to be rerun and all succeeded.
+
+Summary: There was 1 WARNING message shown.
+60.05user 7.45system 4:06:27elapsed 0%CPU (0avgtext+0avgdata 29332maxresident)k
+192inputs+6088outputs (2major+59256minor)pagefaults 0swaps
+
+==> 5-build-8-bb-threads.log <==
+NOTE: Tasks Summary: Attempted 8960 tasks of which 1 didn't need to be rerun and all succeeded.
+
+Summary: There was 1 WARNING message shown.
+59.57user 7.77system 4:16:07elapsed 0%CPU (0avgtext+0avgdata 29384maxresident)k
+9824inputs+6656outputs (7major+59005minor)pagefaults 0swaps
+
+==> 6-build-16-bb-threads.log <==
+NOTE: Tasks Summary: Attempted 8960 tasks of which 1 didn't need to be rerun and all succeeded.
+
+Summary: There was 1 WARNING message shown.
+59.18user 7.36system 4:06:11elapsed 0%CPU (0avgtext+0avgdata 29236maxresident)k
+12328inputs+6184outputs (15major+58877minor)pagefaults 0swaps
+
+==> 7-build-2-bb-threads.log <==
+NOTE: Tasks Summary: Attempted 8960 tasks of which 1 didn't need to be rerun and all succeeded.
+
+Summary: There was 1 WARNING message shown.
+64.44user 8.57system 6:34:07elapsed 0%CPU (0avgtext+0avgdata 29208maxresident)k
+8520inputs+8288outputs (2major+61526minor)pagefaults 0swaps
